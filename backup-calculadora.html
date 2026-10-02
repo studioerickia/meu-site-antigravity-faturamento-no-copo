@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Faturamento no Copo | Confeitaria Lucrativa</title>
+  
+  <!-- Google Fonts: Playfair Display + Dancing Script + Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Top Announcement Bar (Inspirado no topo do Bake House) -->
+  <div class="top-announcement">
+    <span>✨ Mini App Exclusivo para Confeiteiras Iniciantes</span>
+    <span class="heart-badge">❤️ Feito com amor</span>
+  </div>
+
+  <div class="mobile-app-wrapper">
+
+    <!-- App Header & Hero Banner -->
+    <header class="app-header">
+      <div class="brand-bar">
+        <div class="logo-group">
+          <div class="logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+          </div>
+          <div class="logo-text">
+            <span class="logo-title">FATURAMENTO NO COPO</span>
+            <span class="logo-subtitle">ATELIÊ & CONFEITARIA LUCRATIVA</span>
+          </div>
+        </div>
+        <button id="btnQuickDemo" class="btn-demo-badge" title="Preencher com receita de exemplo">
+          🪄 Exemplo Pronto
+        </button>
+      </div>
+
+      <!-- Hero Card estilo Bake House -->
+      <div class="hero-card">
+        <div class="hero-content">
+          <span class="script-subtitle">Doce & Lucrativo ♡</span>
+          <h1 class="hero-title">Domine o Lucro dos seus Copos da Felicidade!</h1>
+          <p class="hero-desc">
+            Pare de chutar preços no escuro. Calcule o custo exato de cada ingrediente e organize suas compras no mercado com elegância e precisão.
+          </p>
+          <div class="hero-badges">
+            <div class="h-badge">
+              <span class="h-icon">🍓</span>
+              <span>Custos Na Ponta do Lápis</span>
+            </div>
+            <div class="h-badge">
+              <span class="h-icon">🛒</span>
+              <span>Checklist Supermercado</span>
+            </div>
+            <div class="h-badge">
+              <span class="h-icon">💰</span>
+              <span>Margem 100% Garantida</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs estilo Confeitaria Gourmet -->
+      <nav class="tabs-nav" aria-label="Abas de navegação">
+        <button class="tab-btn active" data-tab="tab-calculadora" id="tabBtnCalc">
+          <span class="tab-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="2" width="16" height="20" rx="2"></rect>
+              <line x1="8" y1="6" x2="16" y2="6"></line>
+              <line x1="16" y1="14" x2="16" y2="18"></line>
+              <path d="M16 10h.01"></path>
+              <path d="M12 10h.01"></path>
+              <path d="M8 10h.01"></path>
+              <path d="M12 14h.01"></path>
+              <path d="M8 14h.01"></path>
+              <path d="M12 18h.01"></path>
+              <path d="M8 18h.01"></path>
+            </svg>
+          </span>
+          <span class="tab-label">1. Calculadora de Custos</span>
+        </button>
+        <button class="tab-btn" data-tab="tab-checklist" id="tabBtnCheck">
+          <span class="tab-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 11l3 3L22 4"></path>
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+            </svg>
+          </span>
+          <span class="tab-label">2. Checklist de Compras</span>
+          <span class="badge-counter" id="checklistCounterBadge">0/6</span>
+        </button>
+      </nav>
+    </header>
+
+    <!-- MAIN APP CONTENT -->
+    <main class="app-body">
+
+      <!-- ============================================== -->
+      <!-- TAB 1: CALCULADORA DE CUSTOS -->
+      <!-- ============================================== -->
+      <section id="tab-calculadora" class="tab-content active animate-fade">
+
+        <!-- Banner Explicativo Pequeno -->
+        <div class="guide-banner">
+          <div class="guide-icon">💡</div>
+          <div class="guide-text">
+            <strong>Dica de Ouro:</strong> Digite o valor total que você gastou nos ingredientes desta receita e quantos copos você conseguiu rechear e montar.
+          </div>
+        </div>
+
+        <!-- Formulário de Custos -->
+        <div class="baker-card">
+          <div class="card-header">
+            <div class="card-header-title">
+              <span class="card-subhead">Custos dos Ingredientes</span>
+              <h2>Quanto você gastou na receita?</h2>
+            </div>
+            <span class="card-badge-pill">Etapa 1</span>
+          </div>
+
+          <form id="calcForm" class="baker-form" onsubmit="return false;">
+            
+            <!-- Grid de Insumos Principais -->
+            <div class="inputs-grid">
+              
+              <!-- Morangos -->
+              <div class="input-card">
+                <div class="input-card-header">
+                  <div class="input-icon-box">🍓</div>
+                  <div class="input-info">
+                    <label for="costMorangos">Morangos Frescos</label>
+                    <span class="input-sub">Caixas / bandejas</span>
+                  </div>
+                </div>
+                <div class="currency-input-wrap">
+                  <span class="currency-symbol">R$</span>
+                  <input type="number" id="costMorangos" step="0.01" min="0" placeholder="0,00" inputmode="decimal" />
+                </div>
+              </div>
+
+              <!-- Leite Condensado -->
+              <div class="input-card">
+                <div class="input-card-header">
+                  <div class="input-icon-box">🥛</div>
+                  <div class="input-info">
+                    <label for="costLeiteCond">Leite Condensado</label>
+                    <span class="input-sub">Latas / caixinhas</span>
+                  </div>
+                </div>
+                <div class="currency-input-wrap">
+                  <span class="currency-symbol">R$</span>
+                  <input type="number" id="costLeiteCond" step="0.01" min="0" placeholder="0,00" inputmode="decimal" />
+                </div>
+              </div>
+
+              <!-- Chocolate -->
+              <div class="input-card">
+                <div class="input-card-header">
+                  <div class="input-icon-box">🍫</div>
+                  <div class="input-info">
+                    <label for="costChocolate">Chocolate</label>
+                    <span class="input-sub">Barra, gotas ou pó</span>
+                  </div>
+                </div>
+                <div class="currency-input-wrap">
+                  <span class="currency-symbol">R$</span>
+                  <input type="number" id="costChocolate" step="0.01" min="0" placeholder="0,00" inputmode="decimal" />
+                </div>
+              </div>
+
+              <!-- Embalagens -->
+              <div class="input-card">
+                <div class="input-card-header">
+                  <div class="input-icon-box">🥤</div>
+                  <div class="input-info">
+                    <label for="costEmbalagens">Embalagens & Extras</label>
+                    <span class="input-sub">Copos bolha, colheres, fitas</span>
+                  </div>
+                </div>
+                <div class="currency-input-wrap">
+                  <span class="currency-symbol">R$</span>
+                  <input type="number" id="costEmbalagens" step="0.01" min="0" placeholder="0,00" inputmode="decimal" />
+                </div>
+              </div>
+
+              <!-- Outros Insumos (Opcional) -->
+              <div class="input-card input-card-extra">
+                <div class="input-card-header">
+                  <div class="input-icon-box">🧁</div>
+                  <div class="input-info">
+                    <label for="costOutros">Outros Insumos (opcional)</label>
+                    <span class="input-sub">Creme de leite, confeitos, etc.</span>
+                  </div>
+                </div>
+                <div class="currency-input-wrap">
+                  <span class="currency-symbol">R$</span>
+                  <input type="number" id="costOutros" step="0.01" min="0" placeholder="0,00" inputmode="decimal" />
+                </div>
+              </div>
+
+              <!-- Rendimento -->
+              <div class="input-card input-card-yield">
+                <div class="input-card-header">
+                  <div class="input-icon-box">🎯</div>
+                  <div class="input-info">
+                    <label for="rendimentoCopos">Rendimento da Receita</label>
+                    <span class="input-sub">Quantos copos rendeu?</span>
+                  </div>
+                </div>
+                <div class="yield-input-wrap">
+                  <button type="button" class="btn-step" id="btnMinusYield" title="Diminuir">-</button>
+                  <input type="number" id="rendimentoCopos" min="1" step="1" value="10" placeholder="10" inputmode="numeric" />
+                  <button type="button" class="btn-step" id="btnPlusYield" title="Aumentar">+</button>
+                  <span class="yield-unit">copos</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Margem de Lucro Desejada -->
+            <div class="margin-selector-card">
+              <div class="margin-header">
+                <div>
+                  <label class="margin-title">Margem de Lucro Desejada</label>
+                  <span class="margin-hint">Selecione uma margem recomendada ou personalize:</span>
+                </div>
+                <div class="margin-display-badge" id="marginDisplay">100%</div>
+              </div>
+
+              <div class="margin-chips-group">
+                <button type="button" class="margin-chip" data-margin="50">50% <small>(Rápido)</small></button>
+                <button type="button" class="margin-chip active" data-margin="100">100% <small>(Padrão)</small></button>
+                <button type="button" class="margin-chip" data-margin="130">130% <small>(Gourmet)</small></button>
+                <button type="button" class="margin-chip" data-margin="150">150% <small>(Ouro)</small></button>
+                <button type="button" class="margin-chip" data-margin="200">200% <small>(Artesanal)</small></button>
+              </div>
+
+              <div class="margin-slider-wrap">
+                <input type="range" id="marginSlider" min="20" max="300" step="5" value="100" />
+                <div class="slider-labels">
+                  <span>20%</span>
+                  <span>100%</span>
+                  <span>200%</span>
+                  <span>300%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Botões Rápidos de Ação -->
+            <div class="calc-action-row">
+              <button type="button" class="btn-outline-clear" id="btnClearCalc">
+                Limpar Campos
+              </button>
+              <button type="button" class="btn-primary-brown" id="btnCopyReport">
+                📋 Copiar Resumo
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- Card de Resultados / Faturamento -->
+        <div class="baker-card results-card" id="resultsSection">
+          <div class="results-header-banner">
+            <span class="results-tag">Resultado Automático</span>
+            <h3>Visão Financeira por Copo</h3>
+            <p class="results-tagline">Com base no rendimento e insumos cadastrados acima</p>
+          </div>
+
+          <div class="results-grid">
+            
+            <!-- Destaque 1: Custo Unitário -->
+            <div class="result-tile result-tile-cost">
+              <span class="res-label">CUSTO POR COPO</span>
+              <div class="res-value" id="valCustoUnitario">R$ 0,00</div>
+              <span class="res-sub">O que você gasta para fazer 1 copo</span>
+            </div>
+
+            <!-- Destaque 2: Preço Sugerido (HERO) -->
+            <div class="result-tile result-tile-suggested">
+              <div class="hero-price-badge">✨ PREÇO SUGERIDO</div>
+              <span class="res-label">VENDA POR NO MÍNIMO</span>
+              <div class="res-value-highlight" id="valPrecoSugerido">R$ 0,00</div>
+              <span class="res-sub" id="valLucroUnitarioTxt">Lucro líquido: <strong>R$ 0,00</strong> / copo</span>
+            </div>
+
+          </div>
+
+          <!-- Resumo Financeiro da Fornada Inteira -->
+          <div class="batch-summary-box">
+            <h4 class="batch-title">💼 Faturamento da Fornada Completa (<span id="txtBatchCups">10 copos</span>)</h4>
+            
+            <div class="batch-stats-row">
+              <div class="b-stat">
+                <span class="b-stat-title">Investimento Total</span>
+                <span class="b-stat-val text-cost" id="valCustoTotal">R$ 0,00</span>
+              </div>
+              <div class="b-stat-divider"></div>
+              <div class="b-stat">
+                <span class="b-stat-title">Faturamento Bruto</span>
+                <span class="b-stat-val text-revenue" id="valFaturamentoTotal">R$ 0,00</span>
+              </div>
+              <div class="b-stat-divider"></div>
+              <div class="b-stat">
+                <span class="b-stat-title">Seu Lucro Líquido</span>
+                <span class="b-stat-val text-profit" id="valLucroTotal">R$ 0,00</span>
+              </div>
+            </div>
+
+            <!-- Barra Visual de Proporção Custo vs Lucro -->
+            <div class="profit-bar-container">
+              <div class="profit-bar-header">
+                <span>Distribuição do Preço de Venda:</span>
+                <span id="txtProfitRatio">Custo 50% | Lucro 50%</span>
+              </div>
+              <div class="profit-bar">
+                <div class="bar-segment bar-cost" id="barCost" style="width: 50%;"></div>
+                <div class="bar-segment bar-profit" id="barProfit" style="width: 50%;"></div>
+              </div>
+              <div class="profit-legend">
+                <span class="leg-item"><span class="leg-dot dot-cost"></span> Custo dos ingredientes</span>
+                <span class="leg-item"><span class="leg-dot dot-profit"></span> Seu Lucro</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- ============================================== -->
+      <!-- TAB 2: CHECKLIST DE COMPRAS -->
+      <!-- ============================================== -->
+      <section id="tab-checklist" class="tab-content animate-fade">
+
+        <!-- Topo do Checklist -->
+        <div class="checklist-header-card">
+          <div class="chk-header-text">
+            <span class="script-subtitle">No Supermercado ♡</span>
+            <h2>Lista de Compras da Confeiteira</h2>
+            <p>Toque nos ingredientes à medida que colocar no carrinho para não esquecer nada da receita!</p>
+          </div>
+
+          <!-- Barra de Progresso Interativa -->
+          <div class="checklist-progress-wrap">
+            <div class="progress-top-labels">
+              <span id="progressSummary">0 de 6 itens no carrinho</span>
+              <strong id="progressPercentage">0%</strong>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <!-- Botões Rápidos de Ação -->
+          <div class="checklist-actions-bar">
+            <button type="button" class="btn-chk-action" id="btnCheckAll">
+              ✓ Marcar Todos
+            </button>
+            <button type="button" class="btn-chk-action" id="btnUncheckAll">
+              ↺ Desmarcar Todos
+            </button>
+            <button type="button" class="btn-chk-action" id="btnResetDefault">
+              Restaurar Lista Padrão
+            </button>
+          </div>
+        </div>
+
+        <!-- Adicionar Novo Item Personalizado -->
+        <div class="add-item-card">
+          <form id="addItemForm" class="add-item-form">
+            <div class="add-input-wrap">
+              <input type="text" id="newItemName" placeholder="Ex: Nutella, Biscoito Lótus, Tag personalizada..." maxlength="60" required />
+            </div>
+            <div class="add-category-select-wrap">
+              <select id="newItemCategory">
+                <option value="🍓 Frutas">🍓 Frutas</option>
+                <option value="🥛 Laticínios" selected>🥛 Laticínios</option>
+                <option value="🍫 Chocolates">🍫 Chocolates</option>
+                <option value="🥤 Embalagens">🥤 Embalagens</option>
+                <option value="✨ Decoração">✨ Decoração</option>
+                <option value="🏷️ Outros">🏷️ Outros</option>
+              </select>
+            </div>
+            <button type="submit" class="btn-add-item">
+              <span>+ Adicionar</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Lista de Itens do Carrinho -->
+        <div class="checklist-container">
+          <div class="checklist-subheading">
+            <span>Seus Ingredientes & Materiais</span>
+            <span class="auto-save-tag">💾 Salvo automaticamente</span>
+          </div>
+
+          <ul class="checklist-items" id="checklistItemsList">
+            <!-- Renderizado via JavaScript -->
+          </ul>
+
+          <!-- Mensagem Vazia caso apaguem tudo -->
+          <div class="empty-state" id="emptyChecklistState" style="display: none;">
+            <span class="empty-icon">🛒</span>
+            <h3>Sua lista está vazia</h3>
+            <p>Adicione novos itens no campo acima ou clique em "Restaurar Lista Padrão".</p>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- Rodapé Elegante estilo Bake House Bakery -->
+    <footer class="app-footer">
+      <div class="footer-divider-ornament">
+        <span>❧ ❦ ❧</span>
+      </div>
+      <div class="footer-brand">
+        <h4 class="footer-title">FATURAMENTO NO COPO</h4>
+        <p class="footer-phrase">“Grandes confeitarias começam no primeiro copo bem precificado.”</p>
+      </div>
+
+      <div class="footer-badges-strip">
+        <div class="f-badge">
+          <span>🧁</span> Feito para Iniciantes
+        </div>
+        <div class="f-badge">
+          <span>📱</span> 100% Seguro & Offline
+        </div>
+        <div class="f-badge">
+          <span>🍓</span> Copos da Felicidade
+        </div>
+      </div>
+
+      <div class="footer-credits">
+        <p>© 2026 Faturamento no Copo • Design inspirado em Confeitaria Artesanal</p>
+      </div>
+    </footer>
+
+    <!-- Bottom Navigation Bar para Mobile (estilo App Nativo) -->
+    <div class="mobile-bottom-bar">
+      <button class="bottom-nav-item active" data-tab="tab-calculadora">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="4" y="2" width="16" height="20" rx="2"></rect>
+          <line x1="8" y1="6" x2="16" y2="6"></line>
+          <line x1="16" y1="14" x2="16" y2="18"></line>
+          <path d="M16 10h.01"></path>
+          <path d="M12 10h.01"></path>
+          <path d="M8 10h.01"></path>
+          <path d="M12 14h.01"></path>
+          <path d="M8 14h.01"></path>
+          <path d="M12 18h.01"></path>
+          <path d="M8 18h.01"></path>
+        </svg>
+        <span>Calculadora</span>
+      </button>
+      <button class="bottom-nav-item" data-tab="tab-checklist">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 11l3 3L22 4"></path>
+          <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+        </svg>
+        <span>Checklist</span>
+        <span class="nav-mini-badge" id="bottomNavBadge">0/6</span>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Toast Notification flutuante -->
+  <div id="toastNotification" class="toast">Mensagem de aviso</div>
+
+  <script src="app.js"></script>
+</body>
+</html>

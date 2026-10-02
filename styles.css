@@ -1,0 +1,1441 @@
+/* ==========================================================================
+   FATURAMENTO NO COPO - PÁGINA DE VENDAS DE ALTA CONVERSÃO
+   Paleta:
+   - Fundo: Off-White (#FDFBF7)
+   - Marrom Chocolate Profundo: #3D251D
+   - Rosa Confeitaria Chic: #D47A8E
+   - Verde Ouro Lucrativo (EXCLUSIVO CTA): #2A7A42
+   Tipografia:
+   - Títulos: 'Playfair Display', serif
+   - Texto: 'Plus Jakarta Sans', sans-serif
+   - Acentos: 'Dancing Script', cursive
+   ========================================================================== */
+
+:root {
+  /* Cores Base */
+  --bg-page: #FDFBF7;
+  --bg-card: #FFFFFF;
+  --bg-card-soft: #F9F5F0;
+  
+  /* Marrom Chocolate Profundo */
+  --chocolate-900: #251611;
+  --chocolate-800: #3D251D; /* Cor primária de texto e títulos */
+  --chocolate-700: #54352A;
+  --chocolate-600: #734C3D;
+  --chocolate-400: #9C7262;
+  --chocolate-200: #D8C7BF;
+  --chocolate-100: #EFE8E3;
+  --chocolate-50:  #FAF6F3;
+
+  /* Rosa Confeitaria Chic */
+  --pink-chic: #D47A8E;
+  --pink-chic-dark: #B9596E;
+  --pink-chic-light: #FBF0F2;
+  --pink-chic-border: #F3D2D9;
+  --pink-chic-glow: rgba(212, 122, 142, 0.35);
+
+  /* Verde Ouro Lucrativo - EXCLUSIVO PARA BOTÕES DE AÇÃO (CTA) */
+  --green-cta: #2A7A42;
+  --green-cta-hover: #226536;
+  --green-cta-active: #1A502A;
+  --green-cta-gradient: linear-gradient(135deg, #2E8548 0%, #206234 100%);
+  --green-cta-shadow: 0 10px 25px rgba(42, 122, 66, 0.38);
+  --green-cta-pulse: rgba(42, 122, 66, 0.45);
+
+  /* Tarja de Alerta */
+  --alert-red: #A3273D;
+  --alert-red-dark: #841E30;
+
+  /* Tipografia */
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-script: 'Dancing Script', cursive;
+
+  /* Sombras & Bordas */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-xl: 32px;
+  --radius-full: 9999px;
+
+  --shadow-subtle: 0 4px 15px rgba(61, 37, 29, 0.04);
+  --shadow-card: 0 12px 32px -4px rgba(61, 37, 29, 0.08), 0 4px 12px rgba(61, 37, 29, 0.03);
+  --shadow-card-hover: 0 20px 42px -6px rgba(61, 37, 29, 0.13), 0 8px 18px rgba(61, 37, 29, 0.05);
+
+  /* Transições */
+  --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
+   RESET & BASE STYLES
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--bg-page);
+  color: var(--chocolate-800);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  background: none;
+}
+
+/* Container Responsivo */
+.container {
+  width: 100%;
+  max-width: 680px; /* Otimizado para leitura mobile e tablet compacto */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 780px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 860px;
+  }
+}
+
+/* ==========================================================================
+   1. HEADER DE ALERTA (BARRA SUPERIOR)
+   ========================================================================== */
+
+.alert-header {
+  background: linear-gradient(90deg, var(--alert-red) 0%, var(--alert-red-dark) 100%);
+  color: #FFFFFF;
+  padding: 11px 16px;
+  text-align: center;
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  position: relative;
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(163, 39, 61, 0.25);
+  line-height: 1.4;
+}
+
+.alert-header-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.alert-siren {
+  display: inline-block;
+  animation: sirenPulse 1.2s infinite ease-in-out;
+}
+
+@keyframes sirenPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.18); }
+}
+
+.alert-timer-tag {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ==========================================================================
+   ESTILOS GERAIS DE TIPOGRAFIA
+   ========================================================================== */
+
+.title-serif {
+  font-family: var(--font-serif);
+  color: var(--chocolate-800);
+  font-weight: 800;
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+}
+
+.subtitle-script {
+  font-family: var(--font-script);
+  color: var(--pink-chic);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.2;
+  display: block;
+}
+
+.highlight-pink {
+  color: var(--pink-chic-dark);
+  position: relative;
+  display: inline-block;
+}
+
+.highlight-pink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  width: 100%;
+  height: 6px;
+  background-color: var(--pink-chic-light);
+  z-index: -1;
+  border-radius: 4px;
+}
+
+.badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background-color: var(--pink-chic-light);
+  color: var(--pink-chic-dark);
+  border: 1px solid var(--pink-chic-border);
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 14px;
+}
+
+/* ==========================================================================
+   BOTÃO DE AÇÃO PRINCIPAL (CTA VERDE OURO LUCRATIVO)
+   EXCLUSIVO PARA OS BOTÕES DE COMPRA
+   ========================================================================== */
+
+.cta-button {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 490px;
+  padding: 18px 24px;
+  background: var(--green-cta-gradient);
+  color: #FFFFFF;
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  text-align: center;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--green-cta-shadow);
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  cursor: pointer;
+  animation: pulseGlow 2.4s infinite ease-in-out;
+}
+
+.cta-button .cta-main-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 1.05rem;
+  line-height: 1.25;
+}
+
+.cta-button .cta-sub-text {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: none;
+  margin-top: 4px;
+  letter-spacing: 0.2px;
+}
+
+/* Efeito de brilho sweep */
+.cta-button::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -70%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(25deg);
+  animation: ctaShimmer 3.8s infinite;
+}
+
+@keyframes ctaShimmer {
+  0% { left: -80%; }
+  30%, 100% { left: 160%; }
+}
+
+@keyframes pulseGlow {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(42, 122, 66, 0.65), 0 8px 24px rgba(42, 122, 66, 0.35);
+  }
+  60% {
+    transform: scale(1.02);
+    box-shadow: 0 0 0 16px rgba(42, 122, 66, 0), 0 12px 30px rgba(42, 122, 66, 0.45);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(42, 122, 66, 0), 0 8px 24px rgba(42, 122, 66, 0.35);
+  }
+}
+
+.cta-button:hover {
+  transform: translateY(-2px) scale(1.02);
+  background: linear-gradient(135deg, #32904F 0%, #246E3A 100%);
+  box-shadow: 0 14px 34px rgba(42, 122, 66, 0.48);
+}
+
+.cta-button:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+/* Microtexto de Segurança */
+.security-microtext {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--chocolate-600);
+  margin-top: 10px;
+  text-align: center;
+}
+
+.security-microtext svg {
+  color: var(--green-cta);
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   2. SEÇÃO 1 - HERO / HEADLINE IMPACTANTE
+   ========================================================================== */
+
+.hero-section {
+  padding-top: 36px;
+  padding-bottom: 50px;
+  text-align: center;
+  position: relative;
+}
+
+.hero-header-box {
+  margin-bottom: 24px;
+}
+
+.hero-title {
+  font-size: 1.85rem;
+  line-height: 1.25;
+  margin-bottom: 16px;
+  color: var(--chocolate-800);
+}
+
+@media (min-width: 600px) {
+  .hero-title {
+    font-size: 2.35rem;
+  }
+}
+
+.hero-subtitle {
+  font-size: 1.05rem;
+  color: var(--chocolate-700);
+  line-height: 1.55;
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Elemento de Mídia - Imagem Principal */
+.hero-media-wrapper {
+  margin: 28px auto 26px auto;
+  position: relative;
+  max-width: 520px;
+}
+
+.hero-media-wrapper .hero-image-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1536 / 1024;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 18px 40px -10px rgba(61, 37, 29, 0.18), 0 6px 18px rgba(61, 37, 29, 0.08);
+  border: 4px solid #FFFFFF;
+  background-color: var(--bg-card-soft);
+}
+
+.hero-media-wrapper img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform var(--transition-normal);
+}
+
+.hero-media-wrapper:hover img {
+  transform: scale(1.02);
+}
+
+.hero-floating-badge {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 8px 14px;
+  border-radius: var(--radius-full);
+  box-shadow: 0 6px 18px rgba(61, 37, 29, 0.12);
+  border: 1px solid var(--pink-chic-border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--chocolate-800);
+}
+
+.hero-floating-badge .badge-icon {
+  color: #D47A8E;
+  font-size: 1rem;
+}
+
+/* Card de Preço de Lançamento */
+.pricing-card-hero {
+  background: #FFFFFF;
+  border: 2px dashed var(--pink-chic-border);
+  border-radius: var(--radius-lg);
+  padding: 22px 18px;
+  margin: 0 auto 20px auto;
+  max-width: 480px;
+  box-shadow: var(--shadow-subtle);
+  position: relative;
+}
+
+.pricing-badge-strip {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--pink-chic);
+  color: #FFFFFF;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 3px 12px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(212, 122, 142, 0.4);
+}
+
+.price-old-text {
+  font-size: 0.95rem;
+  color: var(--chocolate-400);
+  text-decoration: line-through;
+  margin-bottom: 2px;
+}
+
+.price-main-text {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--chocolate-800);
+  line-height: 1.15;
+  margin-bottom: 4px;
+}
+
+.price-main-text .currency {
+  font-size: 1.25rem;
+  font-weight: 700;
+  vertical-align: super;
+  margin-right: 2px;
+}
+
+.price-sub-text {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--pink-chic-dark);
+}
+
+/* ==========================================================================
+   3. SEÇÃO 2 - CONEXÃO EMOCIONAL E CONTEXTO
+   ========================================================================== */
+
+.section-context {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  background-color: #FFFFFF;
+  border-top: 1px solid var(--chocolate-100);
+  border-bottom: 1px solid var(--chocolate-100);
+}
+
+.section-header-centered {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.section-header-centered h2 {
+  font-size: 1.65rem;
+  line-height: 1.3;
+  margin-bottom: 12px;
+}
+
+@media (min-width: 600px) {
+  .section-header-centered h2 {
+    font-size: 2.05rem;
+  }
+}
+
+.story-lead-text {
+  font-size: 1.05rem;
+  color: var(--chocolate-700);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.story-lead-text strong {
+  color: var(--chocolate-800);
+}
+
+/* Card A Matemática do Lucro Rápido */
+.math-profit-box {
+  background: linear-gradient(135deg, #FAF6F3 0%, #FFFFFF 100%);
+  border: 1px solid var(--chocolate-200);
+  border-radius: var(--radius-lg);
+  padding: 24px 20px;
+  margin-top: 30px;
+  box-shadow: var(--shadow-subtle);
+  position: relative;
+  overflow: hidden;
+}
+
+.math-profit-box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: var(--pink-chic);
+}
+
+.math-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.math-icon {
+  width: 44px;
+  height: 44px;
+  background-color: var(--pink-chic-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  color: var(--pink-chic-dark);
+  flex-shrink: 0;
+}
+
+.math-header h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--chocolate-800);
+}
+
+.math-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+@media (min-width: 560px) {
+  .math-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.math-pill {
+  background: #FFFFFF;
+  border: 1px solid var(--chocolate-100);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(61, 37, 29, 0.03);
+}
+
+.math-pill-label {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--chocolate-400);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.math-pill-val {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--chocolate-800);
+}
+
+.math-pill-val.profit {
+  color: var(--pink-chic-dark);
+}
+
+.math-conclusion {
+  background: var(--pink-chic-light);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--chocolate-800);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ==========================================================================
+   4. SEÇÃO 3 - O QUE VOCÊ VAI RECEBER (PRODUTO PRINCIPAL)
+   ========================================================================== */
+
+.section-deliverables {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.deliverables-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.deliverable-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(61, 37, 29, 0.08);
+  border-radius: var(--radius-lg);
+  padding: 22px 20px;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  position: relative;
+}
+
+.deliverable-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--pink-chic-border);
+}
+
+.card-num-circle {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--pink-chic-light) 0%, #FFFFFF 100%);
+  border: 1px solid var(--pink-chic-border);
+  color: var(--pink-chic-dark);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(212, 122, 142, 0.15);
+}
+
+.card-info {
+  flex: 1;
+}
+
+.card-meta-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--pink-chic);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 4px;
+  display: inline-block;
+}
+
+.card-info h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--chocolate-800);
+  margin-bottom: 6px;
+  line-height: 1.35;
+}
+
+.card-info p {
+  font-size: 0.92rem;
+  color: var(--chocolate-600);
+  line-height: 1.55;
+}
+
+/* ==========================================================================
+   5. SEÇÃO 4 - OS 3 BÔNUS EXTRAORDINÁRIOS (CARDS FLUTUANTES)
+   ========================================================================== */
+
+.section-bonuses {
+  padding-top: 55px;
+  padding-bottom: 55px;
+  background-color: #FFFFFF;
+  border-top: 1px solid var(--chocolate-100);
+  border-bottom: 1px solid var(--chocolate-100);
+}
+
+.bonus-container {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin-top: 28px;
+}
+
+.bonus-floating-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--chocolate-100);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+}
+
+.bonus-floating-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--pink-chic);
+}
+
+.bonus-image-holder {
+  width: 100%;
+  aspect-ratio: 2022 / 778;
+  overflow: hidden;
+  position: relative;
+  background-color: var(--bg-card-soft);
+  border-bottom: 1px solid var(--chocolate-100);
+}
+
+.bonus-image-holder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--transition-normal);
+}
+
+.bonus-floating-card:hover .bonus-image-holder img {
+  transform: scale(1.03);
+}
+
+.bonus-badge-ribbon {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: rgba(37, 22, 17, 0.88);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #FFFFFF;
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.bonus-badge-ribbon.free {
+  background: var(--pink-chic);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.bonus-card-body {
+  padding: 24px 20px;
+}
+
+.bonus-price-crossed {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 0.82rem;
+}
+
+.bonus-price-crossed .old {
+  text-decoration: line-through;
+  color: var(--chocolate-400);
+  font-weight: 600;
+}
+
+.bonus-price-crossed .free-tag {
+  background: var(--pink-chic-light);
+  color: var(--pink-chic-dark);
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.74rem;
+}
+
+.bonus-card-body h3 {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: var(--chocolate-800);
+  margin-bottom: 10px;
+  line-height: 1.35;
+}
+
+.bonus-card-body p {
+  font-size: 0.94rem;
+  color: var(--chocolate-600);
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   6. SEÇÃO 5 - SEGURANÇA TOTAL (GARANTIA BLINDADA)
+   ========================================================================== */
+
+.section-guarantee {
+  padding-top: 55px;
+  padding-bottom: 55px;
+}
+
+.guarantee-box {
+  background: linear-gradient(145deg, #FAF1F3 0%, #FFFFFF 100%);
+  border: 2px solid var(--pink-chic-border);
+  border-radius: var(--radius-xl);
+  padding: 36px 24px;
+  text-align: center;
+  box-shadow: var(--shadow-card);
+  position: relative;
+  overflow: hidden;
+}
+
+.guarantee-seal-icon {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 18px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, #FAF6F3 40%, #EEDBCE 100%);
+  border: 3px solid #DDB892;
+  border-radius: 50%;
+  box-shadow: 0 8px 22px rgba(221, 184, 146, 0.45);
+  position: relative;
+}
+
+.guarantee-seal-icon svg {
+  width: 52px;
+  height: 52px;
+  color: #9C6644;
+}
+
+.guarantee-days-badge {
+  position: absolute;
+  bottom: -4px;
+  background: var(--chocolate-800);
+  color: #FFFFFF;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.5px;
+}
+
+.guarantee-title {
+  font-size: 1.55rem;
+  font-family: var(--font-serif);
+  color: var(--chocolate-800);
+  margin-bottom: 14px;
+  line-height: 1.3;
+}
+
+.guarantee-text {
+  font-size: 0.98rem;
+  color: var(--chocolate-700);
+  line-height: 1.7;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   NOVA SEÇÃO: 🎁 PRESENTE SECRETO DE FIDELIDADE (LIBERAÇÃO NO 8º DIA)
+   ========================================================================== */
+
+.section-secret-gift {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  background-color: var(--bg-card-soft);
+  border-top: 1px solid var(--chocolate-100);
+  border-bottom: 1px solid var(--chocolate-100);
+}
+
+.secret-gift-box {
+  background: linear-gradient(145deg, #FFFFFF 0%, #FFFBF9 50%, #FAF0F2 100%);
+  border: 2px solid var(--pink-chic-border);
+  border-radius: var(--radius-xl);
+  padding: 34px 22px;
+  box-shadow: 0 16px 36px rgba(212, 122, 142, 0.12), 0 4px 14px rgba(61, 37, 29, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 600px) {
+  .secret-gift-box {
+    padding: 42px 36px;
+  }
+}
+
+.secret-header-tags {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.secret-pill-gold {
+  background: linear-gradient(135deg, #FFF3D6 0%, #FFE6AA 100%);
+  color: #7A4E12;
+  border: 1px solid #F0D08A;
+  padding: 4px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.secret-pill-pink {
+  background: var(--pink-chic-light);
+  color: var(--pink-chic-dark);
+  border: 1px solid var(--pink-chic-border);
+  padding: 4px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.secret-gift-title {
+  font-size: 1.55rem;
+  font-family: var(--font-serif);
+  color: var(--chocolate-800);
+  line-height: 1.3;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+@media (min-width: 600px) {
+  .secret-gift-title {
+    font-size: 1.95rem;
+  }
+}
+
+.secret-gift-lead {
+  font-size: 1.02rem;
+  color: var(--chocolate-700);
+  line-height: 1.65;
+  text-align: center;
+  max-width: 620px;
+  margin: 0 auto 26px auto;
+}
+
+/* Mockup Ilustrativo do Web App */
+.secret-app-preview-card {
+  background: #FFFFFF;
+  border: 1px solid var(--chocolate-100);
+  border-radius: var(--radius-lg);
+  padding: 20px 18px;
+  margin: 0 auto 28px auto;
+  max-width: 520px;
+  box-shadow: 0 10px 25px rgba(61, 37, 29, 0.06);
+  border-top: 4px solid var(--pink-chic);
+}
+
+.secret-app-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  border-bottom: 1px dashed var(--chocolate-100);
+}
+
+.secret-app-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--chocolate-800);
+  letter-spacing: 0.4px;
+}
+
+.secret-app-badge-live {
+  background: #E8F5E9;
+  color: #2E7D32;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.secret-features-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.secret-feature-item {
+  background: var(--bg-card-soft);
+  border: 1px solid var(--chocolate-100);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.secret-feature-item:hover {
+  transform: translateY(-2px);
+  border-color: var(--pink-chic-border);
+}
+
+.secret-feature-icon {
+  width: 44px;
+  height: 44px;
+  background: #FFFFFF;
+  border: 1px solid var(--pink-chic-border);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(212, 122, 142, 0.15);
+}
+
+.secret-feature-content h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--chocolate-800);
+  margin-bottom: 5px;
+  line-height: 1.3;
+}
+
+.secret-feature-content p {
+  font-size: 0.9rem;
+  color: var(--chocolate-600);
+  line-height: 1.55;
+}
+
+/* Callout de Aviso de Liberação */
+.secret-release-callout {
+  background: linear-gradient(135deg, #FFFDF8 0%, #FFF7EC 100%);
+  border: 1.5px solid #F3CCA1;
+  border-left: 5px solid #C4823F;
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  box-shadow: 0 4px 12px rgba(196, 130, 63, 0.08);
+}
+
+.secret-release-callout h4 {
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: #734316;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.secret-release-callout p {
+  font-size: 0.88rem;
+  color: #5C3817;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   7. SEÇÃO 6 - CHAMADA FINAL (OFFER STACK & FINAL CTA)
+   ========================================================================== */
+
+.section-final-cta {
+  padding-top: 55px;
+  padding-bottom: 75px;
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--bg-page) 100%);
+  border-top: 1px solid var(--chocolate-100);
+  text-align: center;
+}
+
+.final-hero-title {
+  font-size: 1.75rem;
+  margin-bottom: 14px;
+  line-height: 1.3;
+}
+
+@media (min-width: 600px) {
+  .final-hero-title {
+    font-size: 2.15rem;
+  }
+}
+
+.final-lead-text {
+  font-size: 1.05rem;
+  color: var(--chocolate-700);
+  line-height: 1.65;
+  max-width: 580px;
+  margin: 0 auto 30px auto;
+}
+
+/* Box Resumo do Combo */
+.combo-summary-box {
+  background: #FFFFFF;
+  border: 2px solid var(--chocolate-200);
+  border-radius: var(--radius-xl);
+  padding: 28px 22px;
+  max-width: 520px;
+  margin: 0 auto 28px auto;
+  box-shadow: var(--shadow-card);
+  text-align: left;
+}
+
+.combo-summary-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--chocolate-800);
+  text-align: center;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--chocolate-100);
+}
+
+.combo-items-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.combo-items-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.92rem;
+  color: var(--chocolate-700);
+  line-height: 1.45;
+}
+
+.combo-items-list .check-icon {
+  color: var(--pink-chic-dark);
+  font-weight: bold;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.combo-price-footer {
+  background: var(--pink-chic-light);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  text-align: center;
+  border: 1px dashed var(--pink-chic-border);
+}
+
+.combo-total-value {
+  font-size: 0.88rem;
+  color: var(--chocolate-400);
+  margin-bottom: 4px;
+}
+
+.combo-total-value span {
+  text-decoration: line-through;
+  font-weight: 700;
+}
+
+.combo-final-price {
+  font-family: var(--font-serif);
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--chocolate-800);
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.combo-final-price .currency {
+  font-size: 1.3rem;
+  vertical-align: super;
+}
+
+.combo-installments {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--pink-chic-dark);
+}
+
+/* Selos de Pagamento */
+.payment-methods-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+
+.payment-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--chocolate-600);
+  background: #FFFFFF;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--chocolate-100);
+}
+
+/* ==========================================================================
+   FAQ (PERGUNTAS FREQUENTES RETRÁTEIS)
+   ========================================================================== */
+
+.section-faq {
+  padding-top: 40px;
+  padding-bottom: 50px;
+  background-color: #FFFFFF;
+  border-top: 1px solid var(--chocolate-100);
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.faq-item {
+  border: 1px solid var(--chocolate-100);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: border-color var(--transition-fast);
+}
+
+.faq-item.active {
+  border-color: var(--pink-chic-border);
+}
+
+.faq-question {
+  width: 100%;
+  text-align: left;
+  padding: 16px 18px;
+  background: #FFFFFF;
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: var(--chocolate-800);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.faq-question:hover {
+  background: var(--bg-card-soft);
+}
+
+.faq-arrow {
+  transition: transform var(--transition-fast);
+  color: var(--pink-chic);
+  flex-shrink: 0;
+}
+
+.faq-item.active .faq-arrow {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease-out, padding 0.35s ease;
+  background: var(--bg-page);
+  padding: 0 18px;
+  font-size: 0.9rem;
+  color: var(--chocolate-600);
+  line-height: 1.6;
+}
+
+.faq-item.active .faq-answer {
+  padding: 14px 18px 18px 18px;
+  max-height: 250px;
+}
+
+/* ==========================================================================
+   FOOTER (RODAPÉ)
+   ========================================================================== */
+
+.page-footer {
+  background-color: var(--chocolate-900);
+  color: var(--chocolate-200);
+  padding: 36px 20px 80px 20px; /* Espaço extra para sticky CTA no mobile */
+  text-align: center;
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.footer-logo {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: #FFFFFF;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.footer-disclaimer {
+  max-width: 580px;
+  margin: 14px auto 0 auto;
+  font-size: 0.74rem;
+  color: var(--chocolate-400);
+}
+
+/* ==========================================================================
+   STICKY MOBILE CTA BAR (ALTA CONVERSÃO)
+   Aparece após o scroll da hero section para garantir cliques fáceis
+   ========================================================================== */
+
+.sticky-mobile-cta {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid var(--chocolate-100);
+  padding: 10px 16px;
+  box-shadow: 0 -4px 20px rgba(61, 37, 29, 0.12);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  transform: translateY(110%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sticky-mobile-cta.visible {
+  transform: translateY(0);
+}
+
+.sticky-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.sticky-title {
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--chocolate-400);
+}
+
+.sticky-price {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--chocolate-800);
+  line-height: 1.1;
+}
+
+.sticky-btn {
+  background: var(--green-cta-gradient);
+  color: #FFFFFF;
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 12px 18px;
+  border-radius: var(--radius-full);
+  box-shadow: var(--green-cta-shadow);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+  animation: pulseGlow 2.4s infinite ease-in-out;
+}
+
+@media (min-width: 768px) {
+  .sticky-mobile-cta {
+    max-width: 480px;
+    left: 50%;
+    transform: translate(-50%, 120%);
+    border-radius: var(--radius-full);
+    bottom: 20px;
+    border: 1px solid var(--chocolate-200);
+    padding: 10px 22px;
+  }
+  .sticky-mobile-cta.visible {
+    transform: translate(-50%, 0);
+  }
+}
