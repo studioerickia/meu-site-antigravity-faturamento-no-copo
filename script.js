@@ -1,14 +1,14 @@
 /* ==========================================================================
    FATURAMENTO NO COPO - INTERAÇÕES & ALTA CONVERSÃO
-   - Contador de escassez regressivo
+   - Atribuição da campanha no checkout
    - FAQ Acordeão retrátil
    - Barra CTA Flutuante Inteligente (Sticky Mobile)
    - Scroll suave para a oferta
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Contador Regressivo da Tarja de Alerta (15 minutos renováveis)
-  initCountdownTimer();
+  // 1. Encaminhar a atribuição da campanha ao checkout oficial
+  initCheckoutAttribution();
 
   // 2. Acordeão do FAQ
   initFaqAccordion();
@@ -21,46 +21,33 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * Contador Regressivo Inteligente
+ * Preserve campaign attribution on the official checkout, without redirecting
+ * or delaying the visitor. Only known campaign parameters are forwarded.
  */
-function initCountdownTimer() {
-  const timerElement = document.getElementById('promoTimer');
-  if (!timerElement) return;
-
-  const STORAGE_KEY = 'fnc_promo_endtime';
-  let endTime = localStorage.getItem(STORAGE_KEY);
-
-  const now = new Date().getTime();
-  const DURATION_MS = 14 * 60 * 1000 + 45 * 1000; // 14 min e 45s
-
-  if (!endTime || parseInt(endTime, 10) < now) {
-    endTime = now + DURATION_MS;
-    localStorage.setItem(STORAGE_KEY, endTime);
-  } else {
-    endTime = parseInt(endTime, 10);
-  }
-
-  function update() {
-    const current = new Date().getTime();
-    const remaining = Math.max(0, endTime - current);
-
-    const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
-
-    const formattedMin = String(minutes).padStart(2, '0');
-    const formattedSec = String(seconds).padStart(2, '0');
-
-    timerElement.textContent = `${formattedMin}:${formattedSec}`;
-
-    if (remaining <= 0) {
-      // Renova suavemente caso expire para manter sempre alta urgência
-      endTime = new Date().getTime() + DURATION_MS;
-      localStorage.setItem(STORAGE_KEY, endTime);
-    }
-  }
-
-  update();
-  setInterval(update, 1000);
+function initCheckoutAttribution() {
+  const keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content',
+    'utm_term', 'utm_id', 'campaign_id', 'adset_id', 'ad_id', 'fbclid', 'sck', 'src'];
+  const storageKey = 'fnc_checkout_attribution';
+  let saved = {};
+  try { saved = JSON.parse(sessionStorage.getItem(storageKey) || '{}') || {}; } catch (_) {}
+  const query = new URLSearchParams(window.location.search);
+  // A new campaign replaces the previous campaign, avoiding mixed attribution.
+  if (['utm_source', 'utm_campaign', 'campaign_id', 'ad_id'].some(key => query.has(key))) saved = {};
+  const values = {};
+  keys.forEach(key => {
+    const value = query.has(key) ? query.get(key) : saved[key];
+    if (typeof value === 'string' && value && value.length <= 500 && !value.includes('{{')
+      && !(key === 'fbclid' && value === 'fbclid')) values[key] = value;
+  });
+  try { sessionStorage.setItem(storageKey, JSON.stringify(values)); } catch (_) {}
+  document.querySelectorAll('a[href]').forEach(link => {
+    try {
+      const target = new URL(link.href);
+      if (target.origin !== 'https://pay.cakto.com.br' || target.pathname !== '/pv6mh3a_1167035') return;
+      keys.forEach(key => { if (values[key]) target.searchParams.set(key, values[key]); });
+      link.href = target.toString();
+    } catch (_) { /* Invalid links must never prevent the page from loading. */ }
+  });
 }
 
 /**

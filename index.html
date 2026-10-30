@@ -6,7 +6,7 @@
   <title>Faturamento no Copo | Método Completo de Doces Lucrativos</title>
   
   <!-- SEO & Metatags -->
-  <meta name="description" content="Aprenda a fazer seu primeiro Pix de R$ 100,00 ainda esta semana vendendo Copos da Felicidade direto da sua cozinha." />
+  <meta name="description" content="Aprenda receitas, montagem e armazenamento de Copos da Felicidade com um guia digital passo a passo por R$ 15,90." />
   <meta name="theme-color" content="#A3273D" />
 
   <!-- Google Fonts: Playfair Display + Dancing Script + Plus Jakarta Sans -->
@@ -38,7 +38,10 @@
         var button = event.target instanceof Element && event.target.closest(
           '#heroCtaBtn, #finalCtaBtn, .sticky-mobile-cta .sticky-btn, .cta-button'
         );
-        if (!button || button.getAttribute('href') !== 'https://pay.cakto.com.br/pv6mh3a_1167035') return;
+        if (!button) return;
+        var checkout;
+        try { checkout = new URL(button.href); } catch (error) { return; }
+        if (checkout.origin !== 'https://pay.cakto.com.br' || checkout.pathname !== '/pv6mh3a_1167035') return;
         try {
           if (typeof window.fbq === 'function') {
             window.fbq('track', 'InitiateCheckout', {
@@ -69,11 +72,10 @@
   <aside class="alert-header" role="banner">
     <div class="alert-header-content">
       <span class="alert-siren">🚨</span>
-      <span>ATENÇÃO: LOTE PROMOCIONAL DE LANÇAMENTO EXCLUSIVO</span>
+      <span>GUIA DIGITAL • RECEITAS, MONTAGEM E ARMAZENAMENTO</span>
       <span class="alert-siren">🚨</span>
       <div class="alert-timer-tag">
-        <span>⏱️ Encerra em:</span>
-        <span id="promoTimer">14:45</span>
+        <span>📚 Acesso às apostilas após o pagamento</span>
       </div>
     </div>
   </aside>
@@ -91,11 +93,11 @@
         </div>
         
         <h1 class="title-serif hero-title">
-          QUER FAZER SEU PRIMEIRO PIX DE <span class="highlight-pink">R$&nbsp;100,00</span> AINDA ESTA SEMANA VENDENDO APENAS 5 DOCES?
+          APRENDA A PREPARAR <span class="highlight-pink">COPOS DA FELICIDADE</span> COM UM GUIA PASSO A PASSO
         </h1>
         
         <p class="hero-subtitle">
-          Conheça o método <strong>Faturamento no Copo</strong> e aprenda a criar um negócio altamente lucrativo direto da cozinha da sua casa com apostilas digitais simples, práticas e direto ao ponto.
+          Conheça o método <strong>Faturamento no Copo</strong> e aprenda receitas, montagem em camadas e armazenamento com apostilas digitais para consultar no celular. Combo por R$ 15,90, em pagamento único.
         </p>
       </div>
 
@@ -131,16 +133,16 @@
       </div>
 
       <!-- BOTÃO PRINCIPAL (VERDE CHAMATIVO COM EFEITO DE PULSAR) -->
-      <!-- NOTA: Substitua '#' pelo link do seu checkout (Kiwify, Hotmart, etc.) -->
+      <!-- Checkout oficial Cakto -->
      <a href="https://pay.cakto.com.br/pv6mh3a_1167035" class="cta-button" id="heroCtaBtn">
         <span class="cta-main-text">
-          <span>QUERO MINHAS APOSTILAS E COMEÇAR A LUCRAR AGORA!</span>
+          <span>QUERO MEU GUIA DIGITAL POR R$ 15,90</span>
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <line x1="5" y1="12" x2="19" y2="12"></line>
             <polyline points="12 5 19 12 12 19"></polyline>
           </svg>
         </span>
-        <span class="cta-sub-text">⚡ Download Imediato no seu E-mail e WhatsApp</span>
+        <span class="cta-sub-text">📚 Apostilas em PDF • Acesso após a confirmação do pagamento</span>
       </a>
 
       <!-- Microtexto de Segurança -->
@@ -164,17 +166,17 @@
       <div class="section-header-centered">
         <span class="subtitle-script">Simples, prático e sem enrolação</span>
         <h2 class="title-serif">
-          Você tem R$ 15,90 e uma cozinha? Então você já tem tudo para mudar sua realidade financeira!
+          Receitas, montagem e organização para começar na sua cozinha
         </h2>
       </div>
 
       <div class="story-lead-text">
         <p>
-          O <strong>Copo da Felicidade</strong> se tornou o doce mais desejado e vendido do mercado brasileiro. O grande segredo que as confeitarias tradicionais não te contam é que ele tem um <strong>custo baixíssimo de produção (~R$ 6,00)</strong> e um retorno financeiro imediato.
+          Aprenda a preparar <strong>Copos da Felicidade</strong>, combinar sabores e organizar ingredientes e embalagens. O guia também inclui fichas para calcular os seus custos antes de definir o preço de venda.
         </p>
         <br />
         <p>
-          Você não precisa de batedeira planetária, cursos caros de confeitaria ou semanas de teoria chata. O método <strong>Faturamento no Copo</strong> elimina toda a enrolação e entrega exatamente o passo a passo mastigado para qualquer iniciante colocar a mão na massa hoje e <strong>faturar seus primeiros R$ 100,00 em menos de 24 horas</strong>.
+          Você não precisa de batedeira planetária, cursos caros de confeitaria ou semanas de teoria chata. O guia <strong>Faturamento no Copo</strong> reúne orientações práticas para iniciantes sobre <strong>receitas, montagem e conservação</strong>. As vendas dependem dos seus custos, da divulgação e da procura na sua região.
         </p>
       </div>
 
@@ -183,29 +185,29 @@
         <div class="math-header">
           <div class="math-icon">📊</div>
           <div>
-            <h3>A Matemática do Lucro no Copo</h3>
-            <p style="font-size: 0.85rem; color: var(--chocolate-600);">Veja como é simples colocar R$ 100,00 no bolso:</p>
+            <h3>Como calcular o resultado de cada copo</h3>
+            <p style="font-size: 0.85rem; color: var(--chocolate-600);">Exemplo ilustrativo: use os custos reais da sua produção.</p>
           </div>
         </div>
 
         <div class="math-grid">
           <div class="math-pill">
-            <div class="math-pill-label">Custo Médio / Unidade</div>
+            <div class="math-pill-label">Ingredientes e embalagem (exemplo)</div>
             <div class="math-pill-val">~R$ 6,00</div>
           </div>
           <div class="math-pill">
-            <div class="math-pill-label">Preço Sugerido de Venda</div>
+            <div class="math-pill-label">Preço de venda (exemplo)</div>
             <div class="math-pill-val">R$ 20 a 25</div>
           </div>
           <div class="math-pill">
-            <div class="math-pill-label">Lucro Líquido / Copo</div>
+            <div class="math-pill-label">Diferença antes de outros custos</div>
             <div class="math-pill-val profit">R$ 14 a 19</div>
           </div>
         </div>
 
         <div class="math-conclusion">
           <span style="font-size: 1.25rem;">💰</span>
-          <span><strong>Resultado:</strong> Vendendo apenas <strong>5 copos</strong> para vizinhos, amigas ou no trabalho, você já fatura mais de <strong>R$ 100,00 de lucro limpo</strong>!</span>
+          <span><strong>Exemplo de 5 copos:</strong> receita de R$ 100 a R$ 125, menos R$ 30 em ingredientes e embalagens = <strong>R$ 70 a R$ 95 antes de outros custos</strong>. Desconte também energia, transporte, perdas e seu trabalho. Não é uma promessa de lucro.</span>
         </div>
       </div>
 
@@ -311,7 +313,7 @@
             </div>
             <h3>🎁 BÔNUS 1: Pix em 24 Horas: O Script de WhatsApp para Copiar, Colar e Vender</h3>
             <p>
-              O roteiro exato de mensagens prontas para enviar para contatos e grupos de bairro e esgotar o primeiro lote no mesmo dia. Basta copiar, colar e começar a receber notificações de Pix no celular!
+              Modelos de mensagens para adaptar à sua divulgação, apresentar sabores e organizar encomendas pelo WhatsApp. Os resultados variam conforme a oferta e a procura.
             </p>
           </div>
         </article>
@@ -468,14 +470,14 @@
   <section class="section-final-cta" id="checkout">
     <div class="container">
       
-      <span class="subtitle-script">Últimas vagas no valor promocional</span>
+      <span class="subtitle-script">Seu guia digital para consultar no celular</span>
       
       <h2 class="title-serif final-hero-title">
-        A decisão é sua, mas o lote promocional está acabando...
+        Comece pelas receitas e organize a sua produção
       </h2>
       
       <p class="final-lead-text">
-        Você pode fechar essa página e continuar com as mesmas contas para pagar, ou investir o valor de um lanche para aprender a transformar a sua cozinha em uma fonte de renda.
+        Confira o conteúdo do combo e aprenda no seu ritmo. Você recebe apostilas digitais em PDF por R$ 15,90, em pagamento único, com garantia de 7 dias.
       </p>
 
       <!-- Box Resumo de Valor da Oferta -->
@@ -530,7 +532,7 @@
       <!-- NOTA: Insira o link de pagamento do seu checkout no href abaixo -->
       <a href="https://pay.cakto.com.br/pv6mh3a_1167035" target="_blank" rel="noopener noreferrer" class="cta-button" id="finalCtaBtn">
         <span class="cta-main-text">
-          <span>QUERO GARANTIR MEU COMBO NO LOTE PROMOCIONAL</span>
+          <span>QUERO MEU COMBO DIGITAL POR R$ 15,90</span>
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <line x1="5" y1="12" x2="19" y2="12"></line>
             <polyline points="12 5 19 12 12 19"></polyline>
@@ -647,7 +649,7 @@
        ========================================================================== -->
   <div class="sticky-mobile-cta" id="stickyMobileCta">
     <div class="sticky-info">
-      <span class="sticky-title">Lote Promocional</span>
+      <span class="sticky-title">Guia Digital</span>
       <span class="sticky-price">R$ 15,90</span>
     </div>
   <a href="https://pay.cakto.com.br/pv6mh3a_1167035" class="sticky-btn">
