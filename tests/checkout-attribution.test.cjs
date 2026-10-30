@@ -35,6 +35,24 @@ test('storage blocked, unresolved macros and dummy fbclid do not break checkout'
   assert.equal(u.searchParams.has('utm_content'),false);
   assert.equal(u.searchParams.has('fbclid'),false);
 });
+test('checkout event still fires once for decorated links and never blocks navigation',()=>{
+  const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
+  const inline=html.match(/<script>([\s\S]*?)<\/script>/)[1];
+  const listeners=[],events=[];
+  class Element { closest(){return {href:'https://pay.cakto.com.br/pv6mh3a_1167035?utm_source=facebook'};} }
+  const fbq=(...args)=>events.push(args);
+  const context={URL,Element,window:{fbq},fbq,document:{addEventListener(type,fn){listeners.push(fn);}}};
+  vm.createContext(context);
+  vm.runInContext(inline,context);
+  vm.runInContext(inline,context);
+  assert.equal(listeners.length,1);
+  let blocked=false;
+  listeners[0]({target:new Element(),preventDefault(){blocked=true;}});
+  assert.equal(events.filter(e=>e[1]==='InitiateCheckout').length,1);
+  assert.equal(blocked,false);
+  context.window.fbq=()=>{throw Error('Tracking unavailable');};
+  assert.doesNotThrow(()=>listeners[0]({target:new Element()}));
+});
 test('duplicated source directories remain identical and pixel remains single',()=>{
   for(const name of ['index.html','script.js'])assert.equal(fs.readFileSync(path.join(root,name),'utf8').replace(/\s/g,''),fs.readFileSync(path.join(root,'faturamento-no-copo',name),'utf8').replace(/\s/g,''));
   const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
